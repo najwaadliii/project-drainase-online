@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data Theodolite</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        form { margin-bottom: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        form div { display: flex; flex-direction: column; }
+        label { margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="number"] { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { grid-column: span 2; padding: 12px; background-color: #007BFF; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .logout-link { display: block; text-align: right; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/logout" class="logout-link">Logout</a>
+        <h1>🏗️ Input Data Pengukuran Theodolite</h1>
+        <form action="/" method="POST">
+            <div>
+                <label for="nama_titik">Nama Titik / Patok</label>
+                <input type="text" id="nama_titik" name="nama_titik" placeholder="Contoh: P1" required>
+            </div>
+            <div>
+                <label for="jarak">Jarak (meter)</label>
+                <input type="number" step="0.01" id="jarak" name="jarak" placeholder="Contoh: 50.75" required>
+            </div>
+            <div>
+                <label for="sudut_horizontal">Sudut Horizontal (°)</label>
+                <input type="number" step="0.0001" id="sudut_horizontal" name="sudut_horizontal" placeholder="Contoh: 120.5432" required>
+            </div>
+            <div>
+                <label for="sudut_vertikal">Sudut Vertikal (°)</label>
+                <input type="number" step="0.0001" id="sudut_vertikal" name="sudut_vertikal" placeholder="Contoh: 89.1234" required>
+            </div>
+            <button type="submit">Simpan Data</button>
+        </form>
+        <hr>
+        <h2>💾 Data Tersimpan</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Titik</th>
+                    <th>Sudut Horizontal (°)</th>
+                    <th>Sudut Vertikal (°)</th>
+                    <th>Jarak (m)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data_pengukuran %}
+                <tr>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.nama_titik }}</td>
+                    <td>{{ data.sudut_horizontal }}</td>
+                    <td>{{ data.sudut_vertikal }}</td>
+                    <td>{{ data.jarak }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
